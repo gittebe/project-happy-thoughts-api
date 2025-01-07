@@ -95,13 +95,14 @@ app.get("/thoughts", async (req, res) => {
         }
 
     // Update hearts count
-    const newHearts = thought.hearts % 2 ===0 ? thought.hearts +1 : thought.hearts -1;
-    await Thought.findByIdAndUpdate(id, {hearts: newHearts}, {new: true});
+    const newHearts = thought.hearts % 2 === 0 ? thought.hearts +1 : thought.hearts -1;
+
+    const updatedThought = await Thought.findByIdAndUpdate(id, {hearts: newHearts}, {new: true});
 
         res.status(200).json(updatedThought);
       } catch (error){
         console.error("There is an errow by liking the thought", error);
-        res.status(500).jason({message: "Could not like thought"})
+        res.status(500).json({message: "Could not like thought"})
       }
     })
 
